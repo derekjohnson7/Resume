@@ -1,17 +1,18 @@
-*{  margin: 0px;
+* {
+    margin: 0px;
     padding: 0px;
     font-family: Century;
-
 }
+
 .header {
-    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://cdn.osxdaily.com/wp-content/uploads/2020/10/macos-big-sur-wallpaper-1-610x610.jpg");
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://images.unsplash.com/photo-1683427850494-bcf6511c962b?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MjA3fHx8ZW58MHx8fHx8");
     height: 100vh;
     background-size: cover;
     background-position: center;
     min-height: 100px;
 }
 
-ul{
+ul {
     float: right;
     list-style-type: none;
     margin-top: 30px;
@@ -19,43 +20,37 @@ ul{
     margin-right: 60px;
     font-size: 17px;
 }
-ul li{
+
+ul li {
     display: inline-block;
 }
 
-ul li a{
+ul li a {
     text-decoration: none;
     color: #fff;
     padding: 5px 20px;
     border: 1px solid transparent;
     transition: 0.5 ease;
-
 }
 
-ul li a:hover{
+ul li a:hover {
     background-color: #fff;
     color: #000;
-
 }
 
-/* ul li.active a{
-    background-color: #fff;
-    color: #000;
-} */
-
-.main{
+.main {
     max-width: 1200px;
     margin: auto;
 }
 
-.title{
+.title {
     position: absolute;
     top: 47%;
-    left:50%;
+    left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.btn{
+.btn {
     border: 1px solid #fff;
     padding: 5px 20px;
     color: #fff;
@@ -64,43 +59,86 @@ ul li a:hover{
     text-decoration: none;
 }
 
-.btn:hover{
+.btn:hover {
     background-color: #fff;
     color: #000;
 }
 
-.sub-menu{
+.sub-menu {
     display: none;
     top: 6%;
     position: absolute;
 }
 
-.sub-menu ul{
-    position: absolute;
-}
 
-.main ul li:hover .sub-menu{
+.main ul li:hover .sub-menu {
     display: block;
     position: absolute;
-    background-color: lightblue;
-    margin-top:  15px;
+    background-color: transparent;
+    margin-top: 15px;
     margin-left: -15px;
 }
 
-.main ul li:hover .sub-menu ul{
+.main ul li:hover .sub-menu ul {
     display: block;
     margin: 10px;
 }
 
-.main ul li:hover .sub-menu ul li{
+.main ul li:hover .sub-menu ul li {
     width: 150px;
     padding: 10px;
     border-bottom: 1px dotted #fff;
     background: transparent;
     transition: .4 ease;
-    text-align:  left;
+    text-align: left;
     border-radius: 0px;
 }
-.main ul li:hover .sub-menu ul li:last-child{
+
+.main ul li:hover .sub-menu ul li:last-child {
     border-bottom: none;
 }
+
+.btn {
+    border: 1px solid #fff;
+    padding: 5px 20px;
+    color: #fff;
+    transition: 0.5 ease;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.socials {
+    display: none;
+    top: 6%;
+    position: absolute;
+}
+
+/*hover of socials when on mainpage*/
+.main ul li:hover .socials {
+    display: block;
+    background-color: transparent;
+    margin-top: 15px;
+    margin-left: -15px;
+}
+
+.main ul li:hover .socials ul {
+    display: block;
+    margin: 10px;
+}
+
+/* format the drop down menu to have lines and no background*/
+.main ul li:hover .socials ul li {
+    width: 150px;
+    padding: 10px;
+    border-bottom: 1px dotted #fff;
+    background: transparent;
+    transition: .4s ease; 
+    text-align: left;
+    border-radius: 0px;
+}
+
