@@ -241,6 +241,11 @@ h1{
     width: 80%;
     display: block;
 }
-.thumbnail{
+.image1{
     width: 400px;
+    height: 400px;
+    margin-left: 35%;
+    border-radius: 200px;
+    border-width: 2px;
+    border-color: #fff;
 }
