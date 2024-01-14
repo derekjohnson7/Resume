@@ -1,0 +1,1 @@
+This is a html webpage I have been working on to provide any information about me to recruiters. There is general information, social media pages, information about my education, and my resume, contact information, and references
