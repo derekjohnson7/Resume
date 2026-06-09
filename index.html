@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Derek Johnson — Data Science & Operations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #111318; --ink-mid: #4a4e5c; --ink-soft: #8a8fa0;
+      --paper: #f8f7f4; --white: #ffffff; --red: #c0392b;
+      --red-dim: rgba(192,57,43,0.08); --border: #e4e1db;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Outfit', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--paper); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.1rem 3rem; background: rgba(248,247,244,0.93); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--serif); font-size: 1.25rem; color: var(--ink); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--ink-mid); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--red); }
+
+    /* HERO */
+    #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 64px; }
+    .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 5rem 4rem 5rem 3rem; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--red-dim); border: 1px solid rgba(192,57,43,0.2); color: var(--red); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 0.85rem; margin-bottom: 2rem; width: fit-content; }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+    .hero-name { font-family: var(--serif); font-size: clamp(3.2rem, 5vw, 5.8rem); line-height: 1.04; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .hero-name em { font-style: italic; color: var(--red); }
+    .hero-sub { font-size: 1rem; color: var(--ink-mid); font-weight: 300; line-height: 1.75; max-width: 44ch; margin-bottom: 2.5rem; }
+    .hero-sub strong { color: var(--ink); font-weight: 500; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn { padding: 0.8rem 1.8rem; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
+    .btn-dark { background: var(--ink); color: var(--white); }
+    .btn-dark:hover { background: var(--red); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
+    .btn-outline:hover { background: var(--ink); color: var(--white); transform: translateY(-2px); }
+    .hero-right { background: var(--ink); position: relative; overflow: hidden; max-height: 100vh; }
+    .hero-photo-grid { display: grid; grid-template-rows: 1fr 1fr; height: 100%; }
+    .photo-slot { display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #16181f 0%, #1e2028 100%); color: #3a3d48; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; gap: 0.6rem; border-bottom: 1px solid #252830; }
+    .photo-slot svg { opacity: 0.25; }
+
+    /* SECTIONS */
+    section { padding: 6rem 3rem; }
+    .section-eyebrow { display: flex; align-items: center; gap: 0.75rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); margin-bottom: 0.85rem; }
+    .section-eyebrow::before { content: ''; width: 1.75rem; height: 1.5px; background: var(--red); }
+    h2.section-title { font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 3rem; max-width: 24ch; }
+
+    /* ABOUT */
+    #about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 5rem; align-items: start; max-width: 1100px; margin: 0 auto; }
+    .about-img-wrap { position: relative; }
+    .about-img-wrap::after { content: ''; position: absolute; top: 1rem; left: 1rem; right: -1rem; bottom: -1rem; border: 2px solid var(--border); z-index: 0; }
+    .about-img-placeholder { width: 100%; aspect-ratio: 4/5; background: linear-gradient(155deg, #eeeae3, #e3ddd5); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #bbb; gap: 0.75rem; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; position: relative; z-index: 1; }
+    .about-body p { color: var(--ink-mid); line-height: 1.85; margin-bottom: 1.2rem; font-weight: 300; font-size: 1.02rem; }
+    .about-body p strong { color: var(--ink); font-weight: 500; }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2.5rem; padding-top: 2.5rem; border-top: 1px solid var(--border); }
+    .stat-num { font-family: var(--serif); font-size: 2.4rem; color: var(--ink); line-height: 1; margin-bottom: 0.2rem; }
+    .stat-lbl { font-size: 0.72rem; color: var(--ink-soft); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* FEATURED */
+    #featured { background: var(--ink); color: var(--white); }
+    .featured-inner { max-width: 1100px; margin: 0 auto; }
+    #featured .section-eyebrow { color: #c0392b; }
+    #featured .section-eyebrow::before { background: #c0392b; }
+    #featured h2.section-title { color: var(--white); max-width: none; margin-bottom: 0; }
+    .featured-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: start; margin-top: 3rem; }
+    .featured-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem; }
+    .tag { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.75rem; border: 1px solid #2e3140; color: #888; }
+    .featured-desc { color: #9a9fae; font-weight: 300; line-height: 1.8; font-size: 0.97rem; margin-bottom: 2rem; }
+    .featured-desc strong { color: #d0d4de; font-weight: 500; }
+    .featured-highlights { list-style: none; margin-bottom: 2.5rem; }
+    .featured-highlights li { display: flex; align-items: flex-start; gap: 0.75rem; color: #9a9fae; font-size: 0.9rem; font-weight: 300; padding: 0.6rem 0; border-bottom: 1px solid #1e2028; line-height: 1.5; }
+    .featured-highlights li::before { content: '—'; color: var(--red); flex-shrink: 0; margin-top: 0.05rem; }
+    .featured-tech { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid #1e2028; }
+    .featured-tech-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #555; margin-bottom: 1rem; }
+    .tech-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tech-pill { font-size: 0.72rem; padding: 0.25rem 0.7rem; border: 1px solid #252830; color: #666; font-weight: 400; }
+    .featured-right { position: sticky; top: 5rem; }
+    .featured-card { background: #16181f; border: 1px solid #252830; padding: 2rem; }
+    .featured-card-title { font-family: var(--serif); font-size: 1.2rem; color: var(--white); margin-bottom: 1.25rem; }
+    .fstat { padding: 0.9rem 0; border-bottom: 1px solid #1e2028; display: flex; justify-content: space-between; align-items: center; }
+    .fstat:last-child { border-bottom: none; }
+    .fstat-lbl { font-size: 0.78rem; color: #555; }
+    .fstat-val { font-size: 0.85rem; color: #9a9fae; font-weight: 500; }
+    .btn-ghost { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.5rem; border: 1px solid #333; color: #888; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; width: 100%; justify-content: center; margin-top: 1.5rem; }
+    .btn-ghost:hover { border-color: var(--red); color: var(--white); }
+
+    /* SCHOOL PROJECTS */
+    #projects { background: var(--paper); }
+    .projects-inner { max-width: 1100px; margin: 0 auto; }
+    .proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .proj-card { background: var(--white); padding: 2rem; position: relative; overflow: hidden; transition: background 0.2s; }
+    .proj-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--red); transform: scaleY(0); transform-origin: bottom; transition: transform 0.25s; }
+    .proj-card:hover::before { transform: scaleY(1); }
+    .proj-card:hover { background: #fdf9f8; }
+    .proj-date { font-size: 0.68rem; color: var(--ink-soft); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .proj-tag { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); margin-bottom: 0.6rem; }
+    .proj-title { font-family: var(--serif); font-size: 1.35rem; line-height: 1.2; margin-bottom: 0.6rem; letter-spacing: -0.01em; }
+    .proj-course { font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 0.75rem; }
+    .proj-desc { font-size: 0.87rem; color: var(--ink-mid); line-height: 1.65; font-weight: 300; margin-bottom: 1.25rem; }
+    .proj-tools { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .proj-tool { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.2rem 0.55rem; border: 1px solid var(--border); color: var(--ink-soft); }
+
+    /* HIGHLIGHTS */
+    #highlights { background: var(--white); }
+    .highlights-inner { max-width: 1100px; margin: 0 auto; }
+    .highlights-intro { color: var(--ink-mid); font-weight: 300; font-size: 1rem; line-height: 1.75; max-width: 60ch; margin-bottom: 3.5rem; }
+    .employer-block { margin-bottom: 3.5rem; }
+    .employer-block:last-child { margin-bottom: 0; }
+    .employer-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.75rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .employer-name { font-family: var(--serif); font-size: 1.5rem; letter-spacing: -0.01em; }
+    .employer-meta { font-size: 0.78rem; color: var(--ink-soft); font-weight: 400; }
+    .highlight-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .highlight-item { display: grid; grid-template-columns: auto 1fr; gap: 0 2rem; padding: 1.5rem 0; border-bottom: 1px solid var(--border); align-items: start; }
+    .highlight-item:last-child { border-bottom: none; }
+    .highlight-kicker { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); white-space: nowrap; padding-top: 0.15rem; min-width: 7rem; }
+    .highlight-body {}
+    .highlight-title { font-size: 1.05rem; font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; letter-spacing: -0.01em; }
+    .highlight-desc { font-size: 0.9rem; color: var(--ink-mid); line-height: 1.7; font-weight: 300; }
+    .highlight-stat { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.75rem; font-size: 0.78rem; font-weight: 600; color: var(--ink); background: var(--paper); border: 1px solid var(--border); padding: 0.25rem 0.75rem; }
+    .highlight-stat span { color: var(--red); }
+
+    /* SKILLS */
+    #skills { background: var(--ink); color: var(--white); }
+    .skills-inner { max-width: 1100px; margin: 0 auto; }
+    #skills .section-eyebrow { color: #c0392b; }
+    #skills .section-eyebrow::before { background: #c0392b; }
+    #skills h2.section-title { color: var(--white); }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+    .skill-group-head { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid #1e2028; }
+    .skill-row { display: flex; justify-content: space-between; align-items: center; padding: 0.55rem 0; border-bottom: 1px solid #181a22; font-size: 0.87rem; color: #888; font-weight: 300; }
+    .skill-dot { width: 5px; height: 5px; border-radius: 50%; background: #2e3140; }
+    .skills-resume { margin-top: 4rem; padding-top: 3rem; border-top: 1px solid #1a1c25; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+    .skills-resume p { color: #555; font-size: 0.92rem; font-weight: 300; max-width: 50ch; }
+
+    /* CONTACT */
+    #contact { background: var(--paper); }
+    .contact-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+    .contact-inner .section-eyebrow { justify-content: center; }
+    .contact-inner .section-eyebrow::before { display: none; }
+    .contact-inner h2.section-title { max-width: none; margin-left: auto; margin-right: auto; }
+    .contact-sub { color: var(--ink-mid); font-size: 1rem; font-weight: 300; line-height: 1.75; margin-bottom: 2.5rem; }
+    .contact-email-link { font-family: var(--serif); font-size: 1.9rem; color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--red); padding-bottom: 0.1em; transition: color 0.2s; display: inline-block; margin-bottom: 2.5rem; }
+    .contact-email-link:hover { color: var(--red); }
+    .contact-links { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
+    .contact-link { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.4rem; border: 1.5px solid var(--border); text-decoration: none; color: var(--ink); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.03em; transition: all 0.2s; }
+    .contact-link:hover { border-color: var(--ink); background: var(--ink); color: var(--white); }
+
+    footer { background: var(--ink); color: #3a3d48; text-align: center; padding: 2rem 3rem; font-size: 0.78rem; letter-spacing: 0.05em; }
+
+    .fade { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .fade.in { opacity: 1; transform: none; }
+
+    @media (max-width: 960px) {
+      nav { padding: 1rem 1.5rem; }
+      #hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 5rem 1.5rem 3rem; }
+      .hero-right { height: 55vw; }
+      .hero-photo-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-img-wrap::after { display: none; }
+      .featured-layout { grid-template-columns: 1fr; }
+      .featured-right { position: static; }
+      .proj-grid { grid-template-columns: 1fr 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .highlight-item { grid-template-columns: 1fr; gap: 0.4rem; }
+      .highlight-kicker { min-width: auto; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .proj-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .hero-photo-grid { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">Derek Johnson.</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#featured">NHL Project</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#highlights">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left fade">
+    <div class="hero-badge">Open to new opportunities</div>
+    <h1 class="hero-name">Derek<br><em>Johnson</em></h1>
+    <p class="hero-sub">
+      <strong>Manufacturing operations leader</strong> building a data science toolkit.
+      I bridge the production floor and the analytics dashboard — applying structured operational thinking to technical problems at scale.
+    </p>
+    <div class="hero-btns">
+      <a href="#featured" class="btn btn-dark">View Featured Project</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+  <div class="hero-photo-grid">
+    <img src="images/Baseball.jpg" class="hero-photo" style="width:100%; height:100%; object-fit:cover; object-position: top;">
+    <img src="images/Baseball.jpg" class="hero-photo" style="width:100%; height:100%; object-fit:cover; border-top:1px solid #1e2028;">
+  </div>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+  <div class="about-img-wrap fade">
+  <img src="images/headshot.jpeg" style="width:100%; aspect-ratio:4/5; object-fit:cover; object-position:top; display:block; position:relative; z-index:1;">
+</div>
+    <div class="about-body fade">
+      <div class="section-eyebrow">About Me</div>
+      <h2 class="section-title">Data science rigor. Operations instinct. </h2>
+      <p>I'm a <strong>Night Shift Operations Supervisor at NXP Semiconductors</strong> in Austin, TX, where I use data, process analysis, and operational insight to improve performance in a high-volume semiconductor manufacturing environment.</p>
+      <p>My work sits at the intersection of manufacturing and analytics. Whether investigating equipment failures, identifying bottlenecks, improving labor efficiency, or developing reporting tools, I focus on translating complex operational problems into measurable outcomes.</p>
+      <p>Alongside my industry experience, I'm completing <strong>postgraduate studies in Data Science and AI/ML at UT Austin</strong>, building skills in statistical analysis, machine learning, Python, SQL, and data visualization. I'm particularly interested in roles that combine analytical problem solving, business strategy, and operational improvement.</p>
+      <div class="about-stats">
+        <div><div class="stat-num">5+</div><div class="stat-lbl">Years in Operations</div></div>
+        <div><div class="stat-num">UT</div><div class="stat-lbl">Data Science & AI/ML PGP</div></div>
+        <div><div class="stat-num">$760K+</div><div class="stat-lbl">Documented Impact</div></div>
+        <div><div class="stat-num">6</div><div class="stat-lbl">ML & Data Projects</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED: NHL -->
+<section id="featured">
+  <div class="featured-inner">
+    <div class="fade">
+      <div class="section-eyebrow">Featured Project</div>
+      <h2 class="section-title">NHL Analysis — 100 Years of Hockey Data</h2>
+    </div>
+    <div class="featured-layout fade">
+      <div>
+        <div class="featured-meta">
+          <span class="tag">Data Engineering</span><span class="tag">Machine Learning</span>
+          <span class="tag">Visualization</span><span class="tag">Full-Stack</span>
+        </div>
+        <p class="featured-desc">A <strong>multi-phase capstone</strong> analyzing the evolution of the NHL across 100+ years of data — team performance, player statistics, fan engagement, and draft composition. Built across three progressive phases, each adding a new technical layer.</p>
+        <ul class="featured-highlights">
+          <li><strong>ETL Pipeline:</strong> Extracted NHL data via the sportsIO API, transformed with Pandas, and loaded into a PostgreSQL database using psycopg2 with composite primary keys for relational integrity.</li>
+          <li><strong>Interactive Web App:</strong> Built with JavaScript, HTML/CSS, and Leaflet — featuring a player stat selector, an interactive team map with filterable layers (playoff %, Stanley Cup wins), and a draft nationality breakdown tool by year.</li>
+          <li><strong>KMeans Clustering:</strong> Predicted playoff qualification using Goals For, Goals Against, and Goal Spread per game — revealing a ~3.5 goals/game threshold for playoff likelihood.</li>
+          <li><strong>Logistic Regression:</strong> Optimized playoff predictor using team goal, penalty, and efficiency metrics.</li>
+          <li><strong>Linear Regression:</strong> Forecasted individual player performance for upcoming seasons based on historical data trends.</li>
+          <li><strong>AI Chatbot (Elodie):</strong> Built a conversational NHL assistant in Python for natural language queries against the dataset.</li>
+        </ul>
+        <div class="featured-tech">
+          <div class="featured-tech-label">Technologies</div>
+          <div class="tech-pills">
+            <span class="tech-pill">Python</span><span class="tech-pill">Pandas</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">scikit-learn</span><span class="tech-pill">Matplotlib</span><span class="tech-pill">JavaScript</span><span class="tech-pill">Leaflet.js</span><span class="tech-pill">HTML/CSS</span><span class="tech-pill">KMeans</span><span class="tech-pill">Logistic Regression</span><span class="tech-pill">Linear Regression</span><span class="tech-pill">ETL</span>
+          </div>
+        </div>
+      </div>
+      <div class="featured-right">
+        <div class="featured-card">
+          <div class="featured-card-title">Project Overview</div>
+          <div class="fstat"><span class="fstat-lbl">Scope</span><span class="fstat-val">3-phase capstone</span></div>
+          <div class="fstat"><span class="fstat-lbl">Data Span</span><span class="fstat-val">100+ years, 1917–present</span></div>
+          <div class="fstat"><span class="fstat-lbl">Data Source</span><span class="fstat-val">sportsIO API + Kaggle</span></div>
+          <div class="fstat"><span class="fstat-lbl">Models Built</span><span class="fstat-val">KMeans, Logistic & Linear Reg.</span></div>
+          <div class="fstat"><span class="fstat-lbl">Deliverable</span><span class="fstat-val">Web app + ML models</span></div>
+          <div class="fstat"><span class="fstat-lbl">Commits</span><span class="fstat-val">150 (collaborative)</span></div>
+          <a href="https://github.com/samwallach7/NHL_Analysis" target="_blank" class="btn-ghost">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            View on GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHOOL PROJECTS -->
+<section id="projects">
+  <div class="projects-inner">
+    <div class="fade">
+      <div class="section-eyebrow">Academic Work</div>
+      <h2 class="section-title">Course Projects</h2>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-card fade">
+        <div class="proj-date">Jul 2025</div>
+        <div class="proj-tag">Supervised Learning · Regression</div>
+        <h3 class="proj-title">ReCell</h3>
+        <div class="proj-course">Supervised Learning — Foundations</div>
+        <p class="proj-desc">Built a linear regression model to develop a dynamic pricing strategy for used and refurbished devices, identifying the factors that most significantly drive resale value.</p>
+        <div class="proj-tools"><span class="proj-tool">EDA</span><span class="proj-tool">Linear Regression</span><span class="proj-tool">Business Insights</span></div>
+      </div>
+      <div class="proj-card fade">
+        <div class="proj-date">Aug 2025</div>
+        <div class="proj-tag">Supervised Learning · Classification</div>
+        <h3 class="proj-title">INN Hotels</h3>
+        <div class="proj-course">Supervised Learning — Classification</div>
+        <p class="proj-desc">Analyzed hotel booking data to identify drivers of cancellations and built a predictive model to forecast which bookings would cancel, enabling optimized refund and revenue protection policies.</p>
+        <div class="proj-tools"><span class="proj-tool">Logistic Regression</span><span class="proj-tool">Decision Tree</span><span class="proj-tool">AUC-ROC</span><span class="proj-tool">Pruning</span></div>
+      </div>
+      <div class="proj-card fade">
+        <div class="proj-date">Sep 2025</div>
+        <div class="proj-tag">Ensemble Methods · Model Tuning</div>
+        <h3 class="proj-title">EasyVisa</h3>
+        <div class="proj-course">Ensemble Techniques & Model Tuning</div>
+        <p class="proj-desc">Developed ensemble ML models to predict visa approval outcomes for the OFLC, enabling data-driven prioritization of applicant cases and streamlining the certification process.</p>
+        <div class="proj-tools"><span class="proj-tool">Bagging</span><span class="proj-tool">Boosting</span><span class="proj-tool">Hyperparameter Tuning</span><span class="proj-tool">Sampling</span></div>
+      </div>
+      <div class="proj-card fade">
+        <div class="proj-date">Oct 2025</div>
+        <div class="proj-tag">Unsupervised Learning · Clustering</div>
+        <h3 class="proj-title">Trade&Ahead</h3>
+        <div class="proj-course">Unsupervised Learning</div>
+        <p class="proj-desc">Applied clustering algorithms to group stocks by attribute profile, then developed actionable investment insights and recommendations for each identified cluster segment.</p>
+        <div class="proj-tools"><span class="proj-tool">KMeans</span><span class="proj-tool">Hierarchical Clustering</span><span class="proj-tool">Cluster Profiling</span></div>
+      </div>
+      <div class="proj-card fade">
+        <div class="proj-date">Dec 2025</div>
+        <div class="proj-tag">SQL · Business Analytics</div>
+        <h3 class="proj-title">New Wheels</h3>
+        <div class="proj-course">Introduction to SQL</div>
+        <p class="proj-desc">Used MySQL to investigate declining sales and negative customer sentiment for an auto reseller. Delivered a visualization-driven quarterly business report with leadership recommendations.</p>
+        <div class="proj-tools"><span class="proj-tool">MySQL</span><span class="proj-tool">Window Functions</span><span class="proj-tool">Subqueries</span><span class="proj-tool">Data Aggregation</span></div>
+      </div>
+      <div class="proj-card fade">
+        <div class="proj-date">May 2026</div>
+        <div class="proj-tag">Deep Learning · Neural Networks</div>
+        <h3 class="proj-title">ReneWind</h3>
+        <div class="proj-course">Introduction to Neural Networks</div>
+        <p class="proj-desc">Built and tuned classification models to predict wind generator failures before they occur — enabling proactive maintenance scheduling and reducing overall operational downtime costs.</p>
+        <div class="proj-tools"><span class="proj-tool">Neural Networks</span><span class="proj-tool">Hyperparameter Tuning</span><span class="proj-tool">Optimizers</span><span class="proj-tool">EDA</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section id="highlights">
+  <div class="highlights-inner">
+    <div class="fade">
+      <div class="section-eyebrow">Professional Impact</div>
+      <h2 class="section-title">Career Highlights</h2>
+      <p class="highlights-intro">Selected accomplishments from my operations career — each one grounded in structured analysis, cross-functional coordination, and measurable outcomes.</p>
+    </div>
+
+    <div class="employer-block fade">
+      <div class="employer-header">
+        <span class="employer-name">NXP Semiconductors</span>
+        <span class="employer-meta">Night Shift Operations Lead · Austin, TX</span>
+      </div>
+      <ul class="highlight-list">
+
+        <li class="highlight-item">
+          <div class="highlight-kicker">Process Improvement</div>
+          <div class="highlight-body">
+            <div class="highlight-title">FTE Reduction Workshop</div>
+            <p class="highlight-desc">Led a ~10-person cross-functional workshop to identify and eliminate labor inefficiencies on the production floor. Coordinated with engineers throughout the day to address targeted action items, authored new Rules of Engagement (ROEs), and reported progress to staff managers on a weekly cadence.</p>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem;">
+              <div class="highlight-stat"><span>></span> 1.0 FTE Reduction</div>
+              <div class="highlight-stat"><span>~</span> $200K+ Annual Savings</div>
+              <div class="highlight-stat"><span></span> ~10-Person Team</div>
+            </div>
+          </div>
+        </li>
+
+        <li class="highlight-item">
+          <div class="highlight-kicker">Data & Automation</div>
+          <div class="highlight-body">
+            <div class="highlight-title">Automated Operator Training Matrix</div>
+            <p class="highlight-desc">Designed and deployed a SQL-powered qualification tracker that pulls live data from the internal training database into an auto-refreshing Excel dashboard. Replaced a fragmented manual process with a single source of truth for operator qualification status — giving every supervisor on-demand visibility into where their team actually stands.</p>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem;">
+              <div class="highlight-stat"><span></span> SQL + Excel</div>
+              <div class="highlight-stat"><span>28–32</span> Supervisors Served</div>
+              <div class="highlight-stat"><span></span> Live DB Integration</div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="employer-block fade">
+      <div class="employer-header">
+        <span class="employer-name">lululemon</span>
+        <span class="employer-meta">Operations · Austin, TX</span>
+      </div>
+      <ul class="highlight-list">
+
+        <li class="highlight-item">
+          <div class="highlight-kicker">Inventory Analysis</div>
+          <div class="highlight-body">
+            <div class="highlight-title">Holiday Shipment Discrepancy Identification</div>
+            <p class="highlight-desc">During a new-store opening in peak holiday season, systematically logged and verified every arriving carton against expected allocation. Identified a significant gap between what was allocated and what actually arrived — enabling leadership to reprioritize inventory reallocation and reduce fulfillment disruptions during the highest-stakes period of the retail calendar.</p>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem;">
+              <div class="highlight-stat"><span>~</span> $560K Identified</div>
+              <div class="highlight-stat"><span></span> Excel Verification</div>
+              <div class="highlight-stat"><span></span> Peak Holiday Season</div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="skills-inner">
+    <div class="fade">
+      <div class="section-eyebrow">Capabilities</div>
+      <h2 class="section-title">Skills & Expertise</h2>
+    </div>
+    <div class="skills-grid fade">
+      <div>
+        <div class="skill-group-head">Technical Operations</div>
+        <div class="skill-row">Incident Response & Escalation <span class="skill-dot"></span></div>
+        <div class="skill-row">Runbook & SOP Authoring <span class="skill-dot"></span></div>
+        <div class="skill-row">Root Cause Analysis <span class="skill-dot"></span></div>
+        <div class="skill-row">Cross-functional Coordination <span class="skill-dot"></span></div>
+        <div class="skill-row">Night Shift Leadership <span class="skill-dot"></span></div>
+        <div class="skill-row">Semiconductor Manufacturing <span class="skill-dot"></span></div>
+      </div>
+      <div>
+        <div class="skill-group-head">Data Science & AI/ML</div>
+        <div class="skill-row">Python · Pandas · scikit-learn <span class="skill-dot"></span></div>
+        <div class="skill-row">Machine Learning Models <span class="skill-dot"></span></div>
+        <div class="skill-row">Neural Networks <span class="skill-dot"></span></div>
+        <div class="skill-row">SQL · MySQL · PostgreSQL <span class="skill-dot"></span></div>
+        <div class="skill-row">Data Visualization <span class="skill-dot"></span></div>
+        <div class="skill-row">ETL Pipelines <span class="skill-dot"></span></div>
+      </div>
+      <div>
+        <div class="skill-group-head">Leadership & Strategy</div>
+        <div class="skill-row">Team Mentorship <span class="skill-dot"></span></div>
+        <div class="skill-row">Performance Dashboards <span class="skill-dot"></span></div>
+        <div class="skill-row">Post-Mortem Facilitation <span class="skill-dot"></span></div>
+        <div class="skill-row">Stakeholder Communication <span class="skill-dot"></span></div>
+        <div class="skill-row">Process Improvement <span class="skill-dot"></span></div>
+        <div class="skill-row">Technical Documentation <span class="skill-dot"></span></div>
+      </div>
+    </div>
+    <div class="skills-resume fade">
+      <p>Want the complete picture? Download my resume for full work history, education, and certifications.</p>
+      <a href="Resume/D.Johnson_Resume.pdf" class="btn-ghost" style="width:auto;">Download Resume</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner fade">
+    <div class="section-eyebrow">Get In Touch</div>
+    <h2 class="section-title">Let's work together.</h2>
+    <p class="contact-sub">Actively exploring Technical Operations Manager roles in Austin. If you're building something that needs both operational rigor and data-driven thinking — I'd love to connect.</p>
+    <a href="mailto:derek.johnson7@outlook.com" class="contact-email-link">derek.johnson7@outlook.com</a>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/derekjohnson7/" class="contact-link">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/derekjohnson7" target="_blank" class="contact-link">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="Resume/D.Johnson_Resume.pdf" class="contact-link">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+        Resume
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Derek Johnson · Austin, TX · Data Science & Operations</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('in'), i * 70);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+    links.forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? '#c0392b' : ''; });
+  });
+</script>
+</body>
+</html>
