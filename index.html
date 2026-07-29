@@ -45,6 +45,12 @@
     .hero-photo-grid { display: grid; grid-template-rows: 1fr 1fr; height: 100%; }
     .photo-slot { display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #16181f 0%, #1e2028 100%); color: #3a3d48; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; gap: 0.6rem; border-bottom: 1px solid #252830; }
     .photo-slot svg { opacity: 0.25; }
+    .hero-photo {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ object-position: center 28%;
+}
 
     /* SECTIONS */
     section { padding: 6rem 3rem; }
@@ -214,14 +220,14 @@
 
 <nav>
   <a href="#hero" class="nav-logo">Derek Johnson.</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#featured">NHL Project</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#highlights">Experience</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+<ul class="nav-links">
+<li><a href="#about">About</a></li>
+<li><a href="#highlights">Impact</a></li>
+<li><a href="#featured">Technical Project</a></li>
+<li><a href="#projects">More Projects</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
 </nav>
 
 <!-- HERO -->
@@ -229,20 +235,31 @@
   <div class="hero-left fade">
     <div class="hero-badge">Open to new opportunities</div>
     <h1 class="hero-name">Derek<br><em>Johnson</em></h1>
-    <p class="hero-sub">
-      <strong>Manufacturing operations leader</strong> building a data science toolkit.
-      I bridge the production floor and the analytics dashboard — applying structured operational thinking to technical problems at scale.
-    </p>
-    <div class="hero-btns">
-      <a href="#featured" class="btn btn-dark">View Featured Project</a>
-      <a href="#contact" class="btn btn-outline">Get in Touch</a>
-    </div>
+<p class="hero-sub">
+<strong>Manufacturing operations leader using data, automation, and
+ cross-functional execution</strong> to improve complex production
+ environments. I turn operational pain points into practical tools,
+ clearer decisions, and measurable results.
+</p>
+<div class="hero-btns">
+<a href="#highlights" class="btn btn-dark">View Professional Impact</a>
+<a href="Resume/D.Johnson_Resume.pdf"
+    class="btn btn-outline"
+    target="_blank"
+    rel="noopener noreferrer">
+   View Resume
+</a>
+</div>
   </div>
-  <div class="hero-right">
-  <div class="hero-photo-grid">
-    <img src="images/Baseball.jpg" class="hero-photo" style="width:100%; height:100%; object-fit:cover; object-position: top;">
-    <img src="images/Baseball.jpg" class="hero-photo" style="width:100%; height:100%; object-fit:cover; border-top:1px solid #1e2028;">
-  </div>
+<div class="hero-right">
+<div class="hero-photo-grid">
+<img
+     src="images/Baseball.jpg"
+     class="hero-photo"
+     alt="Derek Johnson with teammates during his collegiate baseball career"
+>
+</div>
+</div>
 </div>
 </section>
 
@@ -255,9 +272,23 @@
     <div class="about-body fade">
       <div class="section-eyebrow">About Me</div>
       <h2 class="section-title">Data science rigor. Operations instinct. </h2>
-      <p>I'm a <strong>Night Shift Operations Supervisor at NXP Semiconductors</strong> in Austin, TX, where I use data, process analysis, and operational insight to improve performance in a high-volume semiconductor manufacturing environment.</p>
-      <p>My work sits at the intersection of manufacturing and analytics. Whether investigating equipment failures, identifying bottlenecks, improving labor efficiency, or developing reporting tools, I focus on translating complex operational problems into measurable outcomes.</p>
-      <p>Alongside my industry experience, I'm completing <strong>postgraduate studies in Data Science and AI/ML at UT Austin</strong>, building skills in statistical analysis, machine learning, Python, SQL, and data visualization. I'm particularly interested in roles that combine analytical problem solving, business strategy, and operational improvement.</p>
+     <p>
+ I'm a <strong>Night Shift Operations Supervisor at NXP Semiconductors</strong>
+ in Austin, Texas, leading in a high-volume semiconductor manufacturing
+ environment.
+</p>
+<p>
+ My work spans equipment investigations, bottleneck analysis, workforce
+ planning, reporting automation, and cross-functional process improvement.
+ I focus on turning complex operational problems into practical solutions
+ and measurable business outcomes.
+</p>
+<p>
+ I have expanded that experience through advanced study in
+<strong>data science, business analytics, and AI/ML</strong>, developing
+ capabilities in Python, SQL, machine learning, data visualization, and
+ automation.
+</p>
       <div class="about-stats">
         <div><div class="stat-num">5+</div><div class="stat-lbl">Years in Operations</div></div>
         <div><div class="stat-num">UT</div><div class="stat-lbl">Data Science & AI/ML PGP</div></div>
@@ -265,6 +296,89 @@
         <div><div class="stat-num">6</div><div class="stat-lbl">ML & Data Projects</div></div>
       </div>
     </div>
+  </div>
+</section>
+  
+<!-- HIGHLIGHTS -->
+<section id="highlights">
+  <div class="highlights-inner">
+    <div class="fade">
+      <div class="section-eyebrow">Professional Impact</div>
+      <h2 class="section-title">Career Highlights</h2>
+      <p class="highlights-intro">Selected accomplishments from my operations career — each one grounded in structured analysis, cross-functional coordination, and measurable outcomes.</p>
+    </div>
+
+    <div class="employer-block fade">
+      <div class="employer-header">
+        <span class="employer-name">NXP Semiconductors</span>
+        <span class="employer-meta">Night Shift Operations Supervisor · Austin, TX</span>
+      </div>
+      <ul class="highlight-list">
+        <li class="highlight-item">
+  <div class="highlight-kicker">Analytics Tool</div>
+  <div class="highlight-body">
+    <div class="highlight-title">Automated Shift Performance Dashboard</div>
+    <p class="highlight-desc">Identified a gap in how operational data was being used — existing reports lacked the ability to compare current shift performance against historical baselines or surface emerging trends in real time. Designed and built an automated dashboard that captures live manufacturing data and benchmarks performance across toolsets and process areas. What began as a personal initiative has since grown into a leadership decision-support tool used to identify bottlenecks, investigate performance changes, and prioritize operational improvements — with new capabilities added continuously based on direct feedback from the floor.</p>
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem;">
+      <div class="highlight-stat"><span></span> Live Manufacturing Data</div>
+      <div class="highlight-stat"><span></span> Shift-to-Shift Benchmarking</div>
+      <div class="highlight-stat"><span></span> Leadership Decision Support</div>
+    </div>
+  </div>
+</li>
+
+        <li class="highlight-item">
+          <div class="highlight-kicker">Process Improvement</div>
+          <div class="highlight-body">
+            <div class="highlight-title">FTE Reduction Workshop</div>
+            <p class="highlight-desc">Led a ~10-person cross-functional workshop to identify and eliminate labor inefficiencies on the production floor. Coordinated with engineers throughout the day to address targeted action items, authored new Rules of Engagement (ROEs), and reported progress to staff managers on a weekly cadence.</p>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem;">
+              <div class="highlight-stat"><span>></span> 1.0 FTE Reduction</div>
+              <div class="highlight-stat"><span>~</span> $200K+ Annual Savings</div>
+              <div class="highlight-stat"><span></span> ~10-Person Team</div>
+            </div>
+          </div>
+        </li>
+
+        <li class="highlight-item">
+          <div class="highlight-kicker">Data & Automation</div>
+          <div class="highlight-body">
+            <div class="highlight-title">Automated Operator Training Matrix</div>
+            <p class="highlight-desc">Designed and deployed a SQL-powered qualification tracker that pulls live data from the internal training database into an auto-refreshing Excel dashboard. Replaced a fragmented manual process with a single source of truth for operator qualification status — giving every supervisor on-demand visibility into where their team actually stands.</p>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem;">
+              <div class="highlight-stat"><span></span> SQL + Excel</div>
+              <div class="highlight-stat"><span>28–32</span> Supervisors Served</div>
+              <div class="highlight-stat"><span></span> Live DB Integration</div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="employer-block fade">
+      <div class="employer-header">
+        <span class="employer-name">lululemon</span>
+        <span class="employer-meta">Operations · Austin, TX</span>
+      </div>
+      <ul class="highlight-list">
+
+        <li class="highlight-item">
+          <div class="highlight-kicker">Inventory Analysis</div>
+          <div class="highlight-body">
+            <div class="highlight-title">Holiday Shipment Discrepancy Identification</div>
+            <p class="highlight-desc">During a new-store opening in peak holiday season, systematically logged and verified every arriving carton against expected allocation. Identified a significant gap between what was allocated and what actually arrived — enabling leadership to reprioritize inventory reallocation and reduce fulfillment disruptions during the highest-stakes period of the retail calendar.</p>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem;">
+              <div class="highlight-stat"><span>~</span> $560K Identified</div>
+              <div class="highlight-stat"><span></span> Excel Verification</div>
+              <div class="highlight-stat"><span></span> Peak Holiday Season</div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
   </div>
 </section>
 
@@ -398,88 +512,7 @@
   </div>
 </section>
 
-<!-- HIGHLIGHTS -->
-<section id="highlights">
-  <div class="highlights-inner">
-    <div class="fade">
-      <div class="section-eyebrow">Professional Impact</div>
-      <h2 class="section-title">Career Highlights</h2>
-      <p class="highlights-intro">Selected accomplishments from my operations career — each one grounded in structured analysis, cross-functional coordination, and measurable outcomes.</p>
-    </div>
 
-    <div class="employer-block fade">
-      <div class="employer-header">
-        <span class="employer-name">NXP Semiconductors</span>
-        <span class="employer-meta">Night Shift Operations Supervisor · Austin, TX</span>
-      </div>
-      <ul class="highlight-list">
-        <li class="highlight-item">
-  <div class="highlight-kicker">Analytics Tool</div>
-  <div class="highlight-body">
-    <div class="highlight-title">Automated Shift Performance Dashboard</div>
-    <p class="highlight-desc">Identified a gap in how operational data was being used — existing reports lacked the ability to compare current shift performance against historical baselines or surface emerging trends in real time. Designed and built an automated dashboard that captures live manufacturing data and benchmarks performance across toolsets and process areas. What began as a personal initiative has since grown into a leadership decision-support tool used to identify bottlenecks, investigate performance changes, and prioritize operational improvements — with new capabilities added continuously based on direct feedback from the floor.</p>
-    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem;">
-      <div class="highlight-stat"><span></span> Live Manufacturing Data</div>
-      <div class="highlight-stat"><span></span> Shift-to-Shift Benchmarking</div>
-      <div class="highlight-stat"><span></span> Leadership Decision Support</div>
-    </div>
-  </div>
-</li>
-
-        <li class="highlight-item">
-          <div class="highlight-kicker">Process Improvement</div>
-          <div class="highlight-body">
-            <div class="highlight-title">FTE Reduction Workshop</div>
-            <p class="highlight-desc">Led a ~10-person cross-functional workshop to identify and eliminate labor inefficiencies on the production floor. Coordinated with engineers throughout the day to address targeted action items, authored new Rules of Engagement (ROEs), and reported progress to staff managers on a weekly cadence.</p>
-            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem;">
-              <div class="highlight-stat"><span>></span> 1.0 FTE Reduction</div>
-              <div class="highlight-stat"><span>~</span> $200K+ Annual Savings</div>
-              <div class="highlight-stat"><span></span> ~10-Person Team</div>
-            </div>
-          </div>
-        </li>
-
-        <li class="highlight-item">
-          <div class="highlight-kicker">Data & Automation</div>
-          <div class="highlight-body">
-            <div class="highlight-title">Automated Operator Training Matrix</div>
-            <p class="highlight-desc">Designed and deployed a SQL-powered qualification tracker that pulls live data from the internal training database into an auto-refreshing Excel dashboard. Replaced a fragmented manual process with a single source of truth for operator qualification status — giving every supervisor on-demand visibility into where their team actually stands.</p>
-            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem;">
-              <div class="highlight-stat"><span></span> SQL + Excel</div>
-              <div class="highlight-stat"><span>28–32</span> Supervisors Served</div>
-              <div class="highlight-stat"><span></span> Live DB Integration</div>
-            </div>
-          </div>
-        </li>
-
-      </ul>
-    </div>
-
-    <div class="employer-block fade">
-      <div class="employer-header">
-        <span class="employer-name">lululemon</span>
-        <span class="employer-meta">Operations · Austin, TX</span>
-      </div>
-      <ul class="highlight-list">
-
-        <li class="highlight-item">
-          <div class="highlight-kicker">Inventory Analysis</div>
-          <div class="highlight-body">
-            <div class="highlight-title">Holiday Shipment Discrepancy Identification</div>
-            <p class="highlight-desc">During a new-store opening in peak holiday season, systematically logged and verified every arriving carton against expected allocation. Identified a significant gap between what was allocated and what actually arrived — enabling leadership to reprioritize inventory reallocation and reduce fulfillment disruptions during the highest-stakes period of the retail calendar.</p>
-            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem;">
-              <div class="highlight-stat"><span>~</span> $560K Identified</div>
-              <div class="highlight-stat"><span></span> Excel Verification</div>
-              <div class="highlight-stat"><span></span> Peak Holiday Season</div>
-            </div>
-          </div>
-        </li>
-
-      </ul>
-    </div>
-
-  </div>
-</section>
 <!-- TIMELINE -->
 <section id="timeline">
   <div class="fade">
