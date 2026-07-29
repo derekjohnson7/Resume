@@ -215,10 +215,7 @@
 .legend-dot.career { background: var(--red); }
 .legend-dot.edu { background: #2e3140; border: 1px solid #555; }
 
-/* =========================================================
-  MOBILE REPAIR
-  Add this at the END of the existing <style> section
-  ========================================================= */
+/* Mobile Styles */
 html,
 body {
  width: 100%;
@@ -416,6 +413,20 @@ li {
    overflow-wrap: anywhere;
  }
 }
+.mobile-resume-link {
+ display: none;
+}
+@media (max-width: 600px) {
+ .mobile-resume-link {
+   display: inline-block;
+   color: var(--red);
+   text-decoration: none;
+   font-size: 0.75rem;
+   font-weight: 600;
+   letter-spacing: 0.08em;
+   text-transform: uppercase;
+ }
+}
   </style>
 </head>
 <body>
@@ -446,10 +457,10 @@ li {
 <div class="hero-btns">
 <a href="#highlights" class="btn btn-dark">View Professional Impact</a>
 <a href="Resume/D.Johnson_Resume.pdf"
-    class="btn btn-outline"
-    target="_blank"
-    rel="noopener noreferrer">
-   View Resume
+  class="mobile-resume-link"
+  target="_blank"
+  rel="noopener noreferrer">
+ Resume
 </a>
 </div>
   </div>
@@ -462,14 +473,15 @@ li {
 >
 </div>
 </div>
-</div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
   <div class="about-grid">
   <div class="about-img-wrap fade">
-  <img src="images/Headshot.png" style="width:100%; aspect-ratio:4/5; object-fit:cover; object-position:top; display:block; position:relative; z-index:1;">
+  <img src="images/Headshot.png"
+    alt= "Professional Headshot of Derek Johnson"
+    style="width:100%; aspect-ratio:4/5; object-fit:cover; object-position:top; display:block; position:relative; z-index:1;">
 </div>
     <div class="about-body fade">
       <div class="section-eyebrow">About Me</div>
