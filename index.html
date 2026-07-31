@@ -132,6 +132,26 @@
     .highlight-desc { font-size: 0.9rem; color: var(--ink-mid); line-height: 1.7; font-weight: 300; }
     .highlight-stat { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.75rem; font-size: 0.78rem; font-weight: 600; color: var(--ink); background: var(--paper); border: 1px solid var(--border); padding: 0.25rem 0.75rem; }
     .highlight-stat span { color: var(--red); }
+    .case-study-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-top: 1.25rem;
+      color: var(--ink);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--red);
+      padding-bottom: 0.2rem;
+      transition: color 0.2s ease, gap 0.2s ease;
+    }
+
+    .case-study-link:hover {
+      color: var(--red);
+      gap: 0.8rem;
+    }
 
     /* SKILLS */
     #skills { background: var(--ink); color: var(--white); }
@@ -532,11 +552,21 @@ li {
   <div class="highlight-kicker">Analytics Tool</div>
   <div class="highlight-body">
     <div class="highlight-title">Automated Shift Performance Dashboard</div>
-    <p class="highlight-desc">Identified a gap in how operational data was being used — existing reports lacked the ability to compare current shift performance against historical baselines or surface emerging trends in real time. Designed and built an automated dashboard that captures live manufacturing data and benchmarks performance across toolsets and process areas. What began as a personal initiative has since grown into a leadership decision-support tool used to identify bottlenecks, investigate performance changes, and prioritize operational improvements — with new capabilities added continuously based on direct feedback from the floor.</p>
+    <p class="highlight-desc">
+  Supervisors needed a practical way to understand current-shift performance
+  without waiting 12–24 hours for historical reporting. I built and iteratively
+  expanded a live decision-support dashboard that moves users from overall shift
+  health to the manufacturing area and equipment most responsible for operational
+  variation.
+    </p>
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-top:1rem; margin-bottom:0.75rem;">
       <img src="images/dashboard-1.png" style="width:100%; border:1px solid var(--border); display:block;">
       <img src="images/dashboard-2.png" style="width:100%; border:1px solid var(--border); display:block;">
     </div>
+    <a href="shift-dashboard-case-study.html" class="case-study-link">
+      Read the full case study
+      <span aria-hidden="true">→</span>
+    </a>
     <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem;">
       <div class="highlight-stat"><span></span> Live Manufacturing Data</div>
       <div class="highlight-stat"><span></span> Shift-to-Shift Benchmarking</div>
