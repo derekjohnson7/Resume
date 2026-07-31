@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Manufacturing Decision Support Dashboard — Derek Johnson</title>
+  <meta name="description" content="A case study showing how Derek Johnson designed and iteratively developed a real-time manufacturing decision-support dashboard.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --ink: #111318;
+      --ink-mid: #4a4e5c;
+      --ink-soft: #8a8fa0;
+      --paper: #f8f7f4;
+      --white: #ffffff;
+      --red: #c0392b;
+      --red-dim: rgba(192, 57, 43, 0.08);
+      --border: #e4e1db;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "Outfit", system-ui, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 1rem 3rem;
+      background: rgba(248, 247, 244, 0.94);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav-logo {
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      text-decoration: none;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-link {
+      color: var(--ink-mid);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-link:hover {
+      color: var(--red);
+    }
+
+    .case-hero {
+      padding: 7rem 3rem 5rem;
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .case-hero-inner,
+    .content-width {
+      width: min(1100px, 100%);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+      color: var(--red);
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 2rem;
+      height: 1.5px;
+      background: currentColor;
+      content: "";
+    }
+
+    h1 {
+      max-width: 900px;
+      margin-bottom: 1.5rem;
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 0.98;
+    }
+
+    .hero-summary {
+      max-width: 760px;
+      color: #b6bac6;
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    .hero-summary strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .case-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: 2.5rem;
+    }
+
+    .meta-pill {
+      padding: 0.45rem 0.8rem;
+      border: 1px solid #30333e;
+      color: #8f94a2;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    section {
+      padding: 6rem 3rem;
+    }
+
+    section:nth-of-type(even) {
+      background: var(--white);
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: minmax(180px, 0.32fr) minmax(0, 1fr);
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .section-label {
+      position: sticky;
+      top: 6rem;
+    }
+
+    .section-number {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--red);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      letter-spacing: -0.025em;
+      line-height: 1.05;
+    }
+
+    .section-body {
+      min-width: 0;
+    }
+
+    .lead {
+      margin-bottom: 1.5rem;
+      color: var(--ink);
+      font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+      font-weight: 400;
+      line-height: 1.55;
+    }
+
+    .section-body p {
+      max-width: 760px;
+      margin-bottom: 1.3rem;
+      color: var(--ink-mid);
+      font-size: 1.02rem;
+      font-weight: 300;
+      line-height: 1.85;
+    }
+
+    blockquote {
+      max-width: 760px;
+      margin: 2rem 0;
+      padding: 1.4rem 1.6rem;
+      border-left: 3px solid var(--red);
+      background: var(--red-dim);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+      line-height: 1.45;
+    }
+
+    .constraint-grid,
+    .result-grid,
+    .future-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 2.5rem;
+      border: 1px solid var(--border);
+      background: var(--border);
+    }
+
+    .info-card {
+      min-width: 0;
+      padding: 1.6rem;
+      background: var(--paper);
+    }
+
+    .info-card h3 {
+      margin-bottom: 0.6rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--ink-mid);
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    .evolution {
+      position: relative;
+      display: grid;
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .version-card {
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1fr);
+      gap: 1.5rem;
+      padding: 1.7rem;
+      border: 1px solid var(--border);
+      background: var(--white);
+    }
+
+    .version-name {
+      color: var(--red);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .version-copy h3 {
+      margin-bottom: 0.45rem;
+      font-size: 1.1rem;
+    }
+
+    .version-copy p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .dashboard-figure {
+      margin: 2.5rem 0 0;
+    }
+
+    .dashboard-frame {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #111318;
+      box-shadow: 0 22px 60px rgba(17, 19, 24, 0.12);
+    }
+
+    .dashboard-frame img {
+      width: 100%;
+      height: auto;
+    }
+
+    figcaption {
+      margin-top: 0.9rem;
+      color: var(--ink-soft);
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+
+    .walkthrough {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .walkthrough-step {
+      padding-top: 1rem;
+      border-top: 2px solid var(--ink);
+    }
+
+    .walkthrough-step span {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--red);
+      font-family: var(--serif);
+      font-size: 1.8rem;
+    }
+
+    .walkthrough-step h3 {
+      margin-bottom: 0.35rem;
+      font-size: 0.94rem;
+    }
+
+    .walkthrough-step p {
+      margin: 0;
+      color: var(--ink-mid);
+      font-size: 0.86rem;
+      line-height: 1.55;
+    }
+
+    .architecture {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      align-items: stretch;
+      gap: 1.1rem;
+      margin-top: 2rem;
+    }
+
+    .architecture-step {
+      position: relative;
+      display: flex;
+      min-height: 115px;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      border: 1px solid var(--border);
+      background: var(--white);
+      text-align: center;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .architecture-step:not(:last-child)::after {
+      position: absolute;
+      top: 50%;
+      right: -0.78rem;
+      color: var(--red);
+      content: "→";
+      transform: translateY(-50%);
+    }
+
+    .decision {
+      margin-top: 2rem;
+      padding: 2rem;
+      border: 1px solid var(--border);
+      background: var(--paper);
+    }
+
+    .decision h3 {
+      margin-bottom: 0.7rem;
+      font-family: var(--serif);
+      font-size: 1.5rem;
+    }
+
+    .decision p:last-child {
+      margin-bottom: 0;
+    }
+
+    .recognition {
+      margin-top: 2rem;
+      padding: 2rem;
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .recognition-label {
+      margin-bottom: 0.7rem;
+      color: var(--red);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .recognition p {
+      margin: 0;
+      color: #bdc1cb;
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    .lessons-list {
+      display: grid;
+      gap: 1px;
+      margin-top: 2rem;
+      border: 1px solid var(--border);
+      background: var(--border);
+    }
+
+    .lesson {
+      display: grid;
+      grid-template-columns: 2rem minmax(0, 1fr);
+      gap: 1rem;
+      padding: 1.5rem;
+      background: var(--white);
+    }
+
+    .lesson-number {
+      color: var(--red);
+      font-family: var(--serif);
+      font-size: 1.35rem;
+    }
+
+    .lesson h3 {
+      margin-bottom: 0.35rem;
+      font-size: 1rem;
+    }
+
+    .lesson p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
+    .case-footer {
+      padding: 4rem 3rem;
+      background: var(--ink);
+      color: var(--white);
+      text-align: center;
+    }
+
+    .case-footer h2 {
+      max-width: 720px;
+      margin: 0 auto 1rem;
+    }
+
+    .case-footer p {
+      max-width: 650px;
+      margin: 0 auto 2rem;
+      color: #999eab;
+      font-weight: 300;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.8rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 1.4rem;
+      border: 1px solid #343741;
+      color: var(--white);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: 0.2s ease;
+    }
+
+    .button:hover {
+      border-color: var(--red);
+      background: var(--red);
+    }
+
+    @media (max-width: 900px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .case-hero,
+      section,
+      .case-footer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+
+      .section-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .section-label {
+        position: static;
+      }
+
+      .constraint-grid,
+      .result-grid,
+      .future-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .walkthrough {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .architecture {
+        grid-template-columns: 1fr;
+      }
+
+      .architecture-step:not(:last-child)::after {
+        top: auto;
+        right: 50%;
+        bottom: -1.05rem;
+        content: "↓";
+        transform: translateX(50%);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .nav-actions .nav-link:first-child {
+        display: none;
+      }
+
+      .case-hero {
+        padding-top: 4.5rem;
+        padding-bottom: 3.5rem;
+      }
+
+      section {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+      }
+
+      h1 {
+        font-size: clamp(2.9rem, 15vw, 4.25rem);
+      }
+
+      .hero-summary {
+        font-size: 1.05rem;
+      }
+
+      .version-card {
+        grid-template-columns: 1fr;
+        gap: 0.6rem;
+      }
+
+      .walkthrough {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-frame {
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">Derek Johnson.</a>
+
+    <div class="nav-actions">
+      <a href="index.html#highlights" class="nav-link">Professional Impact</a>
+      <a href="index.html" class="nav-link">Back to Portfolio</a>
+    </div>
+  </nav>
+
+  <header class="case-hero">
+    <div class="case-hero-inner">
+      <div class="eyebrow">Professional Case Study</div>
+
+      <h1>Building a Real-Time Manufacturing Decision Support Dashboard</h1>
+
+      <p class="hero-summary">
+        What began as a basic shift comparison evolved into a
+        <strong>decision-support workflow</strong> that helps manufacturing
+        supervisors move from “something changed” to “here is where to investigate.”
+      </p>
+
+      <div class="case-meta">
+        <span class="meta-pill">Product Ownership</span>
+        <span class="meta-pill">Operational Analytics</span>
+        <span class="meta-pill">Power Query</span>
+        <span class="meta-pill">User-Centered Iteration</span>
+        <span class="meta-pill">Manufacturing Operations</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="problem">
+      <div class="content-width section-grid">
+        <div class="section-label">
+          <span class="section-number">01 / Context</span>
+          <h2>The Problem</h2>
+        </div>
+
+        <div class="section-body">
+          <p class="lead">
+            Supervisors repeatedly needed to answer one operational question:
+            “What happened last shift?”
+          </p>
+
+          <p>
+            Existing reports were primarily historical. They often described
+            performance 12–24 hours after it occurred, which made them useful for
+            reviewing the past but less useful for responding to the current shift.
+            Supervisors had expressed a need for more immediate visibility for years,
+            but no practical solution had been adopted within the existing reporting
+            environment.
+          </p>
+
+          <blockquote>
+            Rather than wait for a perfect enterprise solution, I built a practical
+            one inside the workflow supervisors already used.
+          </blockquote>
+
+          <div class="constraint-grid">
+            <article class="info-card">
+              <h3>Delayed visibility</h3>
+              <p>
+                Available reports explained prior performance instead of surfacing
+                emerging issues during the active shift.
+              </p>
+            </article>
+
+            <article class="info-card">
+              <h3>Manual investigation</h3>
+              <p>
+                Users had to filter, sort, and compare large equipment lists to
+                determine where a performance gap originated.
+              </p>
+            </article>
+
+            <article class="info-card">
+              <h3>Adoption constraints</h3>
+              <p>
+                The solution needed to work without new installations, specialized
+                training, or unfamiliar technical dependencies.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="evolution">
+      <div class="content-width section-grid">
+        <div class="section-label">
+          <span class="section-number">02 / Iteration</span>
+          <h2>From Comparison to Investigation</h2>
+        </div>
+
+        <div class="section-body">
+          <p class="lead">
+            The dashboard was not designed as a finished product in one attempt.
+            Each version removed another layer of manual work from the user.
+          </p>
+
+          <div class="evolution">
+            <article class="version-card">
+              <div class="version-name">Version 1</div>
+              <div class="version-copy">
+                <h3>Basic shift comparison</h3>
+                <p>
+                  Created a simple table comparing tool type, equipment ID, current
+                  shift pace, previous shift pace, and the difference between them.
+                  Conditional formatting highlighted equipment performing more than
+                  300 wafers above or below the previous shift.
+                </p>
+                <p>
+                  <strong>Limitation:</strong> users still had to manually sort and
+                  interpret hundreds of rows to understand which manufacturing area
+                  was responsible for the overall gap.
+                </p>
+              </div>
+            </article>
+
+            <article class="version-card">
+              <div class="version-name">Version 2</div>
+              <div class="version-copy">
+                <h3>Shift-level decision support</h3>
+                <p>
+                  Added an executive summary, overall projected shift pace,
+                  throughput by manufacturing area, and automatic rankings of the
+                  ten strongest and ten weakest equipment contributors.
+                </p>
+                <p>
+                  This changed the experience from reading raw comparisons to quickly
+                  identifying where performance was improving or falling behind.
+                </p>
+              </div>
+            </article>
+
+            <article class="version-card">
+              <div class="version-name">Version 3</div>
+              <div class="version-copy">
+                <h3>Area-level drill-down</h3>
+                <p>
+                  Added a selectable manufacturing-area view that surfaces the top
+                  and bottom toolsets, equipment-type performance, and the specific
+                  equipment IDs contributing most to the area’s shift variance.
+                </p>
+                <p>
+                  Users unexpectedly valued this capability most because it allowed
+                  them to move directly from overall shift performance to a focused
+                  investigation inside their own area.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="product">
+      <div class="content-width section-grid">
+        <div class="section-label">
+          <span class="section-number">03 / Product</span>
+          <h2>The Decision Workflow</h2>
+        </div>
+
+        <div class="section-body">
+          <p class="lead">
+            The interface follows the way supervisors naturally investigate an
+            operational miss: begin with the shift, locate the area, then identify
+            the equipment requiring attention.
+          </p>
+
+          <figure class="dashboard-figure">
+            <div class="dashboard-frame">
+              <img
+                src="images/shift-overview-demo.jpg"
+                alt="Sanitized demonstration of the shift-level manufacturing performance dashboard"
+              >
+            </div>
+            <figcaption>
+              Shift-level view using anonymized labels and demonstration data. The
+              production application and original operational identifiers are not
+              publicly displayed.
+            </figcaption>
+          </figure>
+
+          <div class="walkthrough">
+            <article class="walkthrough-step">
+              <span>01</span>
+              <h3>Executive summary</h3>
+              <p>Establish overall shift health and the size of the performance delta.</p>
+            </article>
+
+            <article class="walkthrough-step">
+              <span>02</span>
+              <h3>Area comparison</h3>
+              <p>Locate which manufacturing areas are driving positive or negative variance.</p>
+            </article>
+
+            <article class="walkthrough-step">
+              <span>03</span>
+              <h3>Contributor ranking</h3>
+              <p>Automatically surface the equipment most responsible for the change.</p>
+            </article>
+
+            <article class="walkthrough-step">
+              <span>04</span>
+              <h3>Targeted investigation</h3>
+              <p>Direct supervisor attention toward the highest-priority operational misses.</p>
+            </article>
+          </div>
+
+          <figure class="dashboard-figure">
+            <div class="dashboard-frame">
+              <img
+                src="images/area-drilldown-demo.jpg"
+                alt="Sanitized demonstration of the manufacturing-area drill-down dashboard"
+              >
+            </div>
+            <figcaption>
+              Area-level drill-down added in Version 3. Labels and values have been
+              anonymized for portfolio use.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="architecture">
+      <div class="content-width section-grid">
+        <div class="section-label">
+          <span class="section-number">04 / System</span>
+          <h2>Architecture & Design Choices</h2>
+        </div>
+
+        <div class="section-body">
+          <p class="lead">
+            The technical solution was deliberately simple enough to fit the
+            operational environment while still refreshing live manufacturing data.
+          </p>
+
+          <div class="architecture" aria-label="Dashboard architecture">
+            <div class="architecture-step">Manufacturing API<br>(text export)</div>
+            <div class="architecture-step">Data cleaning and transformation</div>
+            <div class="architecture-step">Excel Power Query</div>
+            <div class="architecture-step">Shift and area dashboards</div>
+            <div class="architecture-step">Supervisors and leadership</div>
+          </div>
+
+          <article class="decision">
+            <h3>Why Excel?</h3>
+            <p>
+              Although I had experience developing Python-based projects, Excel was
+              already the accepted reporting environment for supervisors across the
+              factory. Choosing a familiar platform eliminated installation,
+              dependency, and training barriers and allowed the tool to fit directly
+              into existing workflows.
+            </p>
+            <p>
+              The goal was not to use the most technically elaborate platform. The
+              goal was to build something people could trust and use immediately.
+            </p>
+          </article>
+
+          <article class="decision">
+            <h3>The hardest technical problem</h3>
+            <p>
+              The most time-consuming work was locating a source that refreshed
+              frequently enough to support current-shift decision making. The report
+              environment contained many historical sources but relatively few
+              genuinely live feeds.
+            </p>
+            <p>
+              A second challenge was converting actual throughput into a projected
+              12-hour pace so users could make a fair comparison before the current
+              shift had finished.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="feedback">
+      <div class="content-width section-grid">
+        <div class="section-label">
+          <span class="section-number">05 / Adoption</span>
+          <h2>User Feedback & Validation</h2>
+        </div>
+
+        <div class="section-body">
+          <p class="lead">
+            Before releasing the dashboard more broadly, I spent approximately two
+            weeks collecting feedback from supervisors working on my shift.
+          </p>
+
+          <p>
+            Version 1 and Version 2 were positively received, but observation showed
+            that the tool could still reduce more manual effort. Feedback from peers
+            and recurring questions from my manager informed additional capabilities,
+            including the manufacturing-area drill-down and more targeted equipment
+            rankings.
+          </p>
+
+          <div class="result-grid">
+            <article class="info-card">
+              <h3>Peer feedback</h3>
+              <p>
+                On-shift supervisors tested early versions and helped identify where
+                navigation and analysis could be simplified.
+              </p>
+            </article>
+
+            <article class="info-card">
+              <h3>Leadership input</h3>
+              <p>
+                My manager remained involved throughout development and periodically
+                requested additional views or metrics that were incorporated into
+                later versions.
+              </p>
+            </article>
+
+            <article class="info-card">
+              <h3>Cross-site interest</h3>
+              <p>
+                Visitors from another manufacturing site asked to review the tool,
+                requested a copy, and explored adapting the concept for their own
+                operation.
+              </p>
+            </article>
+          </div>
+
+          <div class="recognition">
+            <div class="recognition-label">External validation</div>
+            <p>
+              Visiting colleagues from another company site highlighted the project
+              as an example of proactive problem solving: identifying a persistent
+              need, taking ownership, and building a practical solution instead of
+              waiting for one to arrive.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="lessons">
+      <div class="content-width section-grid">
+        <div class="section-label">
+          <span class="section-number">06 / Reflection</span>
+          <h2>Lessons Learned</h2>
+        </div>
+
+        <div class="section-body">
+          <p class="lead">
+            The project reinforced that successful internal tools depend as much on
+            user behavior and trust as they do on formulas or data pipelines.
+          </p>
+
+          <div class="lessons-list">
+            <article class="lesson">
+              <div class="lesson-number">1</div>
+              <div>
+                <h3>Live data is only valuable when users trust the comparison.</h3>
+                <p>
+                  Finding the correct source and defining a credible projected pace
+                  mattered more than adding visual complexity.
+                </p>
+              </div>
+            </article>
+
+            <article class="lesson">
+              <div class="lesson-number">2</div>
+              <div>
+                <h3>Adoption should influence the technology choice.</h3>
+                <p>
+                  A familiar Excel interface reduced friction and made the solution
+                  usable without requiring supervisors to understand Python,
+                  libraries, or deployment dependencies.
+                </p>
+              </div>
+            </article>
+
+            <article class="lesson">
+              <div class="lesson-number">3</div>
+              <div>
+                <h3>The best feature emerged from observing the users.</h3>
+                <p>
+                  The area-level drill-down was not part of the initial concept, yet
+                  it became the most valued capability because it matched the way
+                  supervisors investigated problems.
+                </p>
+              </div>
+            </article>
+
+            <article class="lesson">
+              <div class="lesson-number">4</div>
+              <div>
+                <h3>A useful first version is more valuable than waiting for perfection.</h3>
+                <p>
+                  Releasing a simple comparison early created feedback, momentum, and
+                  a clear path toward the more capable decision-support system.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="future">
+      <div class="content-width section-grid">
+        <div class="section-label">
+          <span class="section-number">07 / Roadmap</span>
+          <h2>What I Would Build Next</h2>
+        </div>
+
+        <div class="section-body">
+          <p class="lead">
+            A future version would move the product from current-state investigation
+            toward proactive operational intelligence.
+          </p>
+
+          <div class="future-grid">
+            <article class="info-card">
+              <h3>Exception alerts</h3>
+              <p>
+                Notify supervisors when a tool or area develops a significant delta
+                relative to the comparison shift.
+              </p>
+            </article>
+
+            <article class="info-card">
+              <h3>Trend detection</h3>
+              <p>
+                Identify recurring degradation patterns rather than relying only on a
+                single shift-to-shift comparison.
+              </p>
+            </article>
+
+            <article class="info-card">
+              <h3>Historical database</h3>
+              <p>
+                Preserve shift snapshots and compare current performance with similar
+                shifts four or five days earlier.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="case-footer">
+    <h2>This project is one example of how I approach operational problems.</h2>
+    <p>
+      I combine firsthand manufacturing experience with analytics, automation, and
+      iterative product thinking to build practical systems people can use.
+    </p>
+
+    <div class="button-row">
+      <a href="index.html#highlights" class="button">Return to Professional Impact</a>
+      <a href="index.html#contact" class="button">Get in Touch</a>
+    </div>
+  </footer>
+</body>
+</html>
