@@ -98,21 +98,279 @@
     .btn-ghost { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.5rem; border: 1px solid #333; color: #888; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; width: 100%; justify-content: center; margin-top: 1.5rem; }
     .btn-ghost:hover { border-color: var(--red); color: var(--white); }
 
-    /* SCHOOL PROJECTS */
-    #projects { background: var(--paper); }
-    .projects-inner { max-width: 1100px; margin: 0 auto; }
-    .proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
-    .proj-card { background: var(--white); padding: 2rem; position: relative; overflow: hidden; transition: background 0.2s; }
-    .proj-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--red); transform: scaleY(0); transform-origin: bottom; transition: transform 0.25s; }
-    .proj-card:hover::before { transform: scaleY(1); }
-    .proj-card:hover { background: #fdf9f8; }
-    .proj-date { font-size: 0.68rem; color: var(--ink-soft); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4rem; }
-    .proj-tag { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); margin-bottom: 0.6rem; }
-    .proj-title { font-family: var(--serif); font-size: 1.35rem; line-height: 1.2; margin-bottom: 0.6rem; letter-spacing: -0.01em; }
-    .proj-course { font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 0.75rem; }
-    .proj-desc { font-size: 0.87rem; color: var(--ink-mid); line-height: 1.65; font-weight: 300; margin-bottom: 1.25rem; }
-    .proj-tools { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-    .proj-tool { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.2rem 0.55rem; border: 1px solid var(--border); color: var(--ink-soft); }
+/* BACKYARDOS */
+#backyardos {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.backyard-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.backyard-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+  gap: 4rem;
+  align-items: start;
+}
+
+.backyard-copy {
+  min-width: 0;
+}
+
+.backyard-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1.25rem;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid rgba(192, 57, 43, 0.25);
+  background: var(--red-dim);
+  color: var(--red);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.backyard-status::before {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--red);
+  content: "";
+}
+
+.backyard-title {
+  max-width: none;
+  margin-bottom: 0.75rem !important;
+}
+
+.backyard-subtitle {
+  margin-bottom: 1.5rem;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.backyard-intro {
+  margin-bottom: 1.4rem;
+  color: var(--ink-mid);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+.backyard-intro strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.backyard-goals {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin: 2rem 0;
+  border: 1px solid var(--border);
+  background: var(--border);
+}
+
+.backyard-goal {
+  padding: 1.1rem 1.2rem;
+  background: var(--paper);
+}
+
+.backyard-goal-label {
+  margin-bottom: 0.3rem;
+  color: var(--red);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.backyard-goal p {
+  margin: 0;
+  color: var(--ink-mid);
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.55;
+}
+
+.backyard-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1.5rem;
+}
+
+.backyard-tech span {
+  padding: 0.28rem 0.7rem;
+  border: 1px solid var(--border);
+  color: var(--ink-soft);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.backyard-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+
+.backyard-media {
+  min-width: 0;
+}
+
+.backyard-image-main {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--paper);
+}
+
+.backyard-image-main img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.backyard-image-caption {
+  padding: 0.8rem 1rem;
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.backyard-progress {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  background: var(--paper);
+}
+
+.backyard-progress-title {
+  margin-bottom: 1rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.progress-list {
+  list-style: none;
+}
+
+.progress-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink-mid);
+  font-size: 0.84rem;
+  font-weight: 300;
+  line-height: 1.45;
+}
+
+.progress-list li:last-child {
+  border-bottom: none;
+}
+
+.progress-icon {
+  width: 1rem;
+  flex: 0 0 1rem;
+  color: var(--red);
+  font-weight: 600;
+}
+
+.progress-list .future {
+  color: var(--ink-soft);
+}
+
+.backyard-architecture {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.arch-step {
+  position: relative;
+  display: flex;
+  min-height: 100px;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  color: var(--ink-mid);
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.arch-step:not(:last-child)::after {
+  position: absolute;
+  top: 50%;
+  right: -0.75rem;
+  color: var(--red);
+  content: "→";
+  transform: translateY(-50%);
+}
+
+/* BackyardOS responsive */
+@media (max-width: 960px) {
+  .backyard-layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .backyard-media {
+    max-width: 700px;
+  }
+
+  .backyard-architecture {
+    grid-template-columns: 1fr;
+  }
+
+  .arch-step:not(:last-child)::after {
+    top: auto;
+    right: 50%;
+    bottom: -1.05rem;
+    content: "↓";
+    transform: translateX(50%);
+  }
+}
+
+@media (max-width: 600px) {
+  .backyard-goals {
+    grid-template-columns: 1fr;
+  }
+
+  .backyard-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .backyard-actions .btn {
+    width: 100%;
+  }
+
+  .backyard-image-main img {
+    aspect-ratio: 1 / 1;
+  }
+}
 
     /* HIGHLIGHTS */
     #highlights { background: var(--white); }
@@ -437,6 +695,7 @@ li {
 <li><a href="#about">About</a></li>
 <li><a href="#highlights">Impact</a></li>
 <li><a href="#featured">Technical Project</a></li>
+<li><a href="#backyardos">BackyardOS</a></li>
 <li><a href="#skills">Skills</a></li>
 <li><a href="#contact">Contact</a></li>
 </ul>
@@ -663,7 +922,206 @@ li {
   </div>
 </section>
 
+<!-- BACKYARDOS -->
+<section id="backyardos">
+  <div class="backyard-inner">
 
+    <div class="backyard-layout">
+
+      <!-- LEFT: PROJECT STORY -->
+      <div class="backyard-copy fade">
+
+        <div class="section-eyebrow">Currently Building</div>
+
+        <div class="backyard-status">Active Development</div>
+
+        <h2 class="section-title backyard-title">BackyardOS</h2>
+
+        <div class="backyard-subtitle">
+          Embedded IoT Environmental Monitoring Platform
+        </div>
+
+        <p class="backyard-intro">
+          <strong>
+            BackyardOS began with a practical problem: plants in a poorly
+            draining Texas landscape bed were repeatedly exposed to oversaturated
+            soil and root-rot conditions.
+          </strong>
+        </p>
+
+        <p class="backyard-intro">
+          Rather than continue relying on scheduled watering and visual
+          guesswork, I began building an environmental monitoring system using
+          an ESP32, capacitive soil-moisture sensing, and temperature and humidity
+          data. The project is designed as a modular platform that can eventually
+          support historical analysis, weather integration, computer vision,
+          alerts, and irrigation recommendations.
+        </p>
+
+        <div class="backyard-goals">
+
+          <div class="backyard-goal">
+            <div class="backyard-goal-label">Real problem</div>
+            <p>
+              Measure soil and environmental conditions instead of relying on
+              fixed irrigation schedules.
+            </p>
+          </div>
+
+          <div class="backyard-goal">
+            <div class="backyard-goal-label">Systems learning</div>
+            <p>
+              Develop practical experience with embedded hardware, sensor
+              integration, communications, and data pipelines.
+            </p>
+          </div>
+
+          <div class="backyard-goal">
+            <div class="backyard-goal-label">Modular design</div>
+            <p>
+              Build the platform in stages so additional sensors and automation
+              can be added without redesigning the entire system.
+            </p>
+          </div>
+
+          <div class="backyard-goal">
+            <div class="backyard-goal-label">Product roadmap</div>
+            <p>
+              Progress from basic monitoring toward alerts, analytics, computer
+              vision, and intelligent irrigation decisions.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="backyard-tech">
+          <span>ESP32</span>
+          <span>Embedded C++</span>
+          <span>Arduino</span>
+          <span>Soil Moisture</span>
+          <span>BME280</span>
+          <span>I²C</span>
+          <span>Python</span>
+          <span>Git</span>
+          <span>GitHub</span>
+          <span>IoT</span>
+        </div>
+
+        <div class="backyard-actions">
+
+          <a
+            href="https://github.com/derekjohnson7/BackyardOS"
+            class="btn btn-dark"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View GitHub Repository
+          </a>
+
+          <a href="#backyard-roadmap" class="btn btn-outline">
+            View Roadmap
+          </a>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT: IMAGE AND CURRENT PROGRESS -->
+      <div class="backyard-media fade">
+
+        <figure class="backyard-image-main">
+          <img
+            src="images/backyardos-prototype.jpg"
+            alt="BackyardOS ESP32 prototype connected to environmental sensors on a breadboard"
+          >
+
+          <figcaption class="backyard-image-caption">
+            Early BackyardOS hardware prototype during sensor integration and
+            calibration.
+          </figcaption>
+        </figure>
+
+        <div class="backyard-progress" id="backyard-roadmap">
+
+          <div class="backyard-progress-title">Current Project Status</div>
+
+          <ul class="progress-list">
+
+            <li>
+              <span class="progress-icon">✓</span>
+              <span>ESP32 development environment and repository established</span>
+            </li>
+
+            <li>
+              <span class="progress-icon">✓</span>
+              <span>Capacitive soil-moisture sensor integrated and calibrated</span>
+            </li>
+
+            <li>
+              <span class="progress-icon">✓</span>
+              <span>
+                Temperature, humidity, pressure, and moisture readings captured
+                successfully
+              </span>
+            </li>
+
+            <li>
+              <span class="progress-icon">✓</span>
+              <span>
+                Engineering notes, architecture, calibration procedure, and
+                changelog maintained in GitHub
+              </span>
+            </li>
+
+            <li class="future">
+              <span class="progress-icon">○</span>
+              <span>Historical data storage and browser-based dashboard</span>
+            </li>
+
+            <li class="future">
+              <span class="progress-icon">○</span>
+              <span>Weather API integration and condition-based recommendations</span>
+            </li>
+
+            <li class="future">
+              <span class="progress-icon">○</span>
+              <span>Computer vision and automated irrigation decision support</span>
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ARCHITECTURE -->
+    <div class="backyard-architecture fade">
+
+      <div class="arch-step">
+        Soil and Environmental Sensors
+      </div>
+
+      <div class="arch-step">
+        ESP32 Edge Controller
+      </div>
+
+      <div class="arch-step">
+        Wi-Fi Data Transmission
+      </div>
+
+      <div class="arch-step">
+        Backend and Historical Storage
+      </div>
+
+      <div class="arch-step">
+        Dashboard, Alerts, and Recommendations
+      </div>
+
+    </div>
+
+  </div>
+</section>
+  
 <!-- TIMELINE -->
 <section id="timeline">
   <div class="fade">
